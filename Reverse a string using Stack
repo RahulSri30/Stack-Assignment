@@ -1,0 +1,2 @@
+def reverse(String):
+    return (String[::-1])
