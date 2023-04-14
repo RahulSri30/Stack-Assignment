@@ -1,0 +1,23 @@
+class Solution:
+    def damn(self, h: List[int], right: List[int], left: List[int]) -> None:
+        n = len(h)
+        mx = -1
+        for i in range(n):
+            left[i] = mx
+            mx = max(mx, h[i])
+        mx = -1
+        for i in range(n-1, -1, -1):
+            right[i] = mx
+            mx = max(mx, h[i])
+
+    def trap(self, height: List[int]) -> int:
+        n = len(height)
+        right = [0] * n
+        left = [0] * n
+        self.damn(height, right, left)
+        ans = 0
+
+        for i in range(n):
+            if min(right[i], left[i]) > height[i]:
+                ans += min(right[i], left[i]) - height[i]
+        return ans
