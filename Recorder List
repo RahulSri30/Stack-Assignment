@@ -1,0 +1,24 @@
+class Solution:
+    def reverse(self, head: ListNode) -> ListNode:
+        t1, t2 = None, None
+        while head:
+            t2 = head.next
+            head.next = t1
+            t1 = head
+            head = t2
+        return t1
+
+    def reorderList(self, head: ListNode) -> None:
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        second = self.reverse(slow.next)
+        slow.next = None
+        first = head
+        while second:
+            temp1, temp2 = first.next, second.next
+            first.next = second
+            second.next = temp1
+            first = temp1
+            second = temp2
