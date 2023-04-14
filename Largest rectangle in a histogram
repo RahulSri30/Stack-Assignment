@@ -1,0 +1,16 @@
+class Solution:
+    def getMaxArea(self,histogram):
+        n = len(histogram)
+        stack = [-1]
+        max_area = 0
+        for i in range(n):
+            while stack[-1] != -1 and histogram[stack[-1]] >= histogram[i]:
+                h = histogram[stack.pop()]
+                w = i - stack[-1] - 1
+                max_area = max(max_area, h * w)
+            stack.append(i)
+        while stack[-1] != -1:
+            h = histogram[stack.pop()]
+            w = n - stack[-1] - 1
+            max_area = max(max_area, h * w)
+        return max_area
