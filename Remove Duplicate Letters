@@ -1,0 +1,14 @@
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        count = [0] * 26
+        for char in s:
+            count[ord(char) - ord('a')] += 1
+        stack = []
+        for char in s:
+            count[ord(char) - ord('a')] -= 1
+            if char in stack:
+                continue
+            while stack and char < stack[-1] and count[ord(stack[-1]) - ord('a')]:
+                stack.pop()
+            stack.append(char)
+        return "".join(stack)
